@@ -1,6 +1,9 @@
 const plank = document.getElementById("plank");
 const seesaw = document.getElementById("seesaw");
 
+const PLANK_WIDTH = 400;
+const CENTER = PLANK_WIDTH / 2;
+
 let objects = [];
 
 plank.addEventListener("click", (e) => {
@@ -24,6 +27,9 @@ function randomWeight() {
 function render() {
     document.querySelectorAll(".weight").forEach(el => el.remove());
 
+    let leftTorque = 0;
+    let rightTorque = 0;
+
     objects.forEach(obj => {
         const el = document.createElement("div");
         el.className = "weight";
@@ -31,5 +37,20 @@ function render() {
         el.innerText = obj.weight + "kg";
 
         seesaw.appendChild(el);
+
+        const distance = Math.abs(obj.x - CENTER);
+
+        if (obj.x < CENTER) {
+            leftTorque += obj.weight * distance;
+        } else {
+            rightTorque += obj.weight * distance;
+        }
     });
+
+    const angle = Math.max(
+        -30,
+        Math.min(30, (rightTorque-leftTorque)/100)
+    );
+
+    seesaw.style.transform = `rotate(${angle}deg)`;
 }
