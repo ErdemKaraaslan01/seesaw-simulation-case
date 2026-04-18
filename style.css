@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
+  background: #f2f3f5;
 }
 
 .scene {
@@ -19,8 +20,10 @@ body {
 }
 
 .info-panel div {
-  padding: 10px;
-  background: #eee;
+  padding: 15px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  width: 120px;
 }
 
 .seesaw-container {
@@ -34,14 +37,32 @@ body {
 #seesaw {
   position: relative;
   width: 400px;
-  height:20px;
+  height: 20px;
 }
 
 #plank {
   width: 400px;
   height: 12px;
-  background: #6b4f2a;
+  background: midnightblue;
   position: absolute;
+  cursor: pointer;
   top: 0;
   left: 0;
+}
+
+
+#resetBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background:crimson;
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
+}
+
+#log {
+  width: 600px;
+  margin: 20px auto;
+  text-align: left;
+  font-size: 14px;
 }
