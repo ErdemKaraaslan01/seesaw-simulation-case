@@ -19,6 +19,8 @@ function randomWeight() {
 }
 
 function render() {
+  document.querySelectorAll(".weight").forEach(el => el.remove());
+
   objects.forEach(obj => {
     const el = document.createElement("div");
     el.className = "weight";
