@@ -6,6 +6,8 @@ const rightDisplay = document.getElementById("rightWeight");
 const tiltDisplay = document.getElementById("tiltAngle");
 const nextDisplay = document.getElementById("nextWeight");
 
+const logDiv = document.getElementById("log");
+
 const PLANK_WIDTH = 400;
 const CENTER = PLANK_WIDTH / 2;
 
@@ -22,15 +24,16 @@ plank.addEventListener("click", (e) => {
     const rect = plank.getBoundingClientRect();
     const x = e.clientX - rect.left;
 
-    const weight = nextWeight;
-
     objects.push({
         x: x,
-        weight: weight
+        weight: nextWeight
     });
+
+    log(`${nextWeight}kg dropped at ${Math.round(x - CENTER)}px`);
 
     nextWeight = randomWeight();
     nextDisplay.innerText = `${nextWeight} kg`;
+
 
     render();
 });
@@ -73,4 +76,10 @@ function render() {
     leftDisplay.innerText = `${leftWeight} kg`;
     rightDisplay.innerText = `${rightWeight} kg`;
     tiltDisplay.innerText = `${angle.toFixed(1)}°`;
+}
+
+function log(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    logDiv.prepend(div);
 }
