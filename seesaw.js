@@ -1,32 +1,35 @@
 const plank = document.getElementById("plank");
 const seesaw = document.getElementById("seesaw");
 
-let objects = []; 
+let objects = [];
 
-plank.addEventListener("click",  (e) => {
-  const weight = randomWeight();
+plank.addEventListener("click", (e) => {
+    const rect = plank.getBoundingClientRect();
+    const x = e.clientX - rect.left;
 
-  objects.push({
-    x: e.clientX,
-    weight: weight
-  });
+    const weight = randomWeight();
 
-  render();
+    objects.push({
+        x: x,
+        weight: weight
+    });
+
+    render();
 });
 
 function randomWeight() {
-  return Math.floor(Math.random() * 10) + 1;
+    return Math.floor(Math.random() * 10) + 1;
 }
 
 function render() {
-  document.querySelectorAll(".weight").forEach(el => el.remove());
+    document.querySelectorAll(".weight").forEach(el => el.remove());
 
-  objects.forEach(obj => {
-    const el = document.createElement("div");
-    el.className = "weight";
-    el.style.left = obj.x + "px";
-    el.innerText = obj.weight + "kg";
+    objects.forEach(obj => {
+        const el = document.createElement("div");
+        el.className = "weight";
+        el.style.left = obj.x + "px";
+        el.innerText = obj.weight + "kg";
 
-    seesaw.appendChild(el);
-  });
+        seesaw.appendChild(el);
+    });
 }
