@@ -1,7 +1,15 @@
 const plank = document.getElementById("plank");
+let objects = []; 
 
-plank.addEventListener("click", () => {
-  console.log("plank clicked");
+plank.addEventListener("click", (e) => {
+  const weight = randomWeight();
+
+  objects.push({
+    x: e.clientX,
+    weight: weight
+  });
+
+  console.log(objects);
 });
 
 function randomWeight() {
