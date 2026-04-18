@@ -7,7 +7,9 @@ body {
   width: 600px;
   height: 300px;
   margin: auto;
-  background: lightgray;
+  background: #d1d5db;
+  border-radius: 10px;
+  position: relative;
 }
 
 .info-panel {
@@ -22,15 +24,24 @@ body {
 }
 
 .seesaw-container {
-  position:absolute;
-  bottom: 50px;
+  position: absolute;
+  bottom: 80px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 #seesaw {
+  position: relative;
   width: 400px;
   height:20px;
-  position: relative;
+}
+
+#plank {
+  width: 400px;
+  height: 12px;
+  background: #6b4f2a;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
