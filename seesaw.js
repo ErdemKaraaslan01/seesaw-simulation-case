@@ -7,6 +7,7 @@ const tiltDisplay = document.getElementById("tiltAngle");
 const nextDisplay = document.getElementById("nextWeight");
 
 const logDiv = document.getElementById("log");
+const resetBtn = document.getElementById("resetBtn");
 
 const PLANK_WIDTH = 400;
 const CENTER = PLANK_WIDTH / 2;
@@ -16,13 +17,10 @@ let objects = [];
 let nextWeight = randomWeight();
 nextDisplay.innerText = `${nextWeight} kg`;
 
-function randomWeight() {
-    return Math.floor(Math.random() * 10) + 1;
-}
 
-plank.addEventListener("click", (e) => {
+plank.addEventListener("click", (element) => {
     const rect = plank.getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const x = element.clientX - rect.left;
 
     objects.push({
         x: x,
@@ -36,6 +34,23 @@ plank.addEventListener("click", (e) => {
 
 
     render();
+});
+
+resetBtn.addEventListener("click", () => {
+    objects = [];
+
+    document.querySelectorAll(".weight").forEach(e => e.remove());
+
+    seesaw.style.transform = "rotate(0deg)";
+
+    leftDisplay.innerText = "0 kg";
+    rightDisplay.innerText = "0 kg";
+    tiltDisplay.innerText = "0°";
+
+    nextWeight = randomWeight();
+    nextDisplay.innerText = `${nextWeight} kg`;
+
+    logDiv.innerHTML = "";
 });
 
 
@@ -82,4 +97,9 @@ function log(text) {
     const div = document.createElement("div");
     div.innerText = text;
     logDiv.prepend(div);
+}
+
+
+function randomWeight() {
+    return Math.floor(Math.random() * 10) + 1;
 }
