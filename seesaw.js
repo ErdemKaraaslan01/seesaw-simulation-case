@@ -27,8 +27,10 @@ function randomWeight() {
 function render() {
     document.querySelectorAll(".weight").forEach(el => el.remove());
 
-    let leftTorque = 0;
-    let rightTorque = 0;
+    let leftTorque = 0; 
+    let rightTorque = 0; 
+    let leftWeight = 0;  
+    let rightWeight = 0; 
 
     objects.forEach(obj => {
         const el = document.createElement("div");
@@ -41,16 +43,22 @@ function render() {
         const distance = Math.abs(obj.x - CENTER);
 
         if (obj.x < CENTER) {
-            leftTorque += obj.weight * distance;
+            leftWeight += obj.weight;
+            leftTorque += obj.weight * distance; 
         } else {
-            rightTorque += obj.weight * distance;
+            rightWeight += obj.weight;
+            rightTorque += obj.weight * distance; 
         }
     });
 
     const angle = Math.max(
         -30,
-        Math.min(30, (rightTorque-leftTorque)/100)
+        Math.min(30, (rightTorque - leftTorque)/100)
     );
 
     seesaw.style.transform = `rotate(${angle}deg)`;
+
+    leftDisplay.innerText = `${leftWeight} kg`; 
+    rightDisplay.innerText = `${rightWeight} kg`;  
+    tiltDisplay.innerText = `${angle.toFixed(1)}°`;
 }
