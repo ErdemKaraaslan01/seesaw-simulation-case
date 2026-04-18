@@ -1,0 +1,1 @@
+const plank = document.getElementById("plank");
