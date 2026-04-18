@@ -32,12 +32,15 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 #seesaw {
   position: relative;
   width: 400px;
   height: 20px;
+  transform-origin: center center;
+  transition: transform 0.5s ease;
 }
 
 #plank {
@@ -54,7 +57,7 @@ body {
 #resetBtn {
   margin-top: 20px;
   padding: 10px 20px;
-  background:crimson;
+  background: crimson;
   color: whitesmoke;
   border: none;
   cursor: pointer;
@@ -65,4 +68,44 @@ body {
   margin: 20px auto;
   text-align: left;
   font-size: 14px;
+  height: 120px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#pivot {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid #374151;
+}
+
+.weight {
+  position: absolute;
+  bottom: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: teal;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transform: translateX(-50%);
+}
+
+.seesaw-wrapper {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
 }
