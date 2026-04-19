@@ -28,7 +28,9 @@ plank.addEventListener("click", (element) => {
         weight: nextWeight
     });
 
-    log(`${nextWeight}kg dropped at ${Math.round(x - CENTER)}px`);
+    const distance = Math.round(Math.abs(x - CENTER));
+    const side = x < CENTER ? "left" : "right";
+    log(`${nextWeight}kg dropped on ${side} side at ${distance}px from center`);
 
     nextWeight = randomWeight();
     nextDisplay.innerText = `${nextWeight} kg`;
