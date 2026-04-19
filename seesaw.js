@@ -12,7 +12,8 @@ const resetBtn = document.getElementById("resetBtn");
 const PLANK_WIDTH = 400;
 const CENTER = PLANK_WIDTH / 2;
 
-let objects = [];
+let objects = JSON.parse(localStorage.getItem("seesaw")) || [];
+let logs = JSON.parse(localStorage.getItem("seesawLogs")) || [];
 
 let nextWeight = randomWeight();
 nextDisplay.innerText = `${nextWeight} kg`;
@@ -37,20 +38,18 @@ plank.addEventListener("click", (element) => {
 });
 
 resetBtn.addEventListener("click", () => {
+
     objects = [];
+    logs = [];
+    localStorage.removeItem("seesaw");
+    localStorage.removeItem("seesawLogs");
 
-    document.querySelectorAll(".weight").forEach(e => e.remove());
-
-    seesaw.style.transform = "rotate(0deg)";
-
-    leftDisplay.innerText = "0 kg";
-    rightDisplay.innerText = "0 kg";
-    tiltDisplay.innerText = "0°";
+    logDiv.innerHTML = "";
 
     nextWeight = randomWeight();
     nextDisplay.innerText = `${nextWeight} kg`;
 
-    logDiv.innerHTML = "";
+    render();
 });
 
 
@@ -67,6 +66,7 @@ function render() {
         el.className = "weight";
         el.style.left = obj.x + "px";
         el.innerText = obj.weight + "kg";
+        el.style.pointerEvents = "none";
 
         seesaw.appendChild(el);
 
@@ -91,15 +91,34 @@ function render() {
     leftDisplay.innerText = `${leftWeight} kg`;
     rightDisplay.innerText = `${rightWeight} kg`;
     tiltDisplay.innerText = `${angle.toFixed(1)}°`;
+
+    saveState();
 }
 
-function log(text) {
+function saveState() {
+    localStorage.setItem("seesaw", JSON.stringify(objects));
+    localStorage.setItem("seesawLogs", JSON.stringify(logs));
+}
+
+function log(text, isInitial = false) {
     const div = document.createElement("div");
     div.innerText = text;
     logDiv.prepend(div);
+
+    if (!isInitial) {
+        logs.push(text);
+        saveState();
+    }
 }
 
 
 function randomWeight() {
     return Math.floor(Math.random() * 10) + 1;
 }
+
+function init() {
+    logs.forEach(msg => log(msg, true));
+    render();
+}
+
+init();
